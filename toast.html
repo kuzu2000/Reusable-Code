@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font: 16px Arial;
+        background: black;
+      }
+
+      .container {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .button {
+        margin: 0 auto;
+        height: auto;
+        border: none;
+        background: none;
+        outline: none;
+        color: white;
+        border-radius: 5px;
+        font-size: 1.5rem;
+        background-color: rgb(17, 17, 17);
+        padding: 12px;
+        cursor: pointer;
+      }
+
+      .toast {
+        right: -100%;
+        margin: 0 auto;
+        width: 300px;
+        height: auto;
+        border-radius: 5px;
+        background-color: white;
+        color: black;
+        padding: 18px 25px;
+        position: fixed;
+        transition: 0.5s;
+      }
+
+      .toast-close {
+        position: absolute;
+        top: 5px;
+        right: 15px;
+        cursor: pointer;
+        font-size: 1.25rem;
+      }
+
+      .toast-progress {
+        position: absolute;
+        width: 0%;
+        height: 4px;
+        left: 0;
+        bottom: 0;
+        border-radius: 5px;
+        background-image: linear-gradient(
+          to right,
+          teal,
+          aqua,
+          blue,
+          aqua,
+          blue,
+          purple,
+          red
+        );
+        transition: width;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+    <div class="toast">
+      <div class="toast-text">🐎 Wow, so easy!</div>
+      <div class="toast-close">&times;</div>
+      <div class="toast-progress"></div>
+    </div>
+
+    <button class="button">Toast Start</button>
+  </div>
+    <script>
+      let toast = document.querySelector('.toast');
+      let close = document.querySelector('.toast-close');
+      let progress = document.querySelector('.toast-progress');
+
+      function toastStart() {
+        let bar = 100;
+        toast.style.right = '0%';
+        let interval = setInterval(() => {
+          bar--;
+          progress.style.width = `${bar}%`;
+          if (bar <= 0) {
+            toast.style.right = '-100%';
+          }
+        }, 40);
+
+        return () => clearInterval(interval)
+      }
+
+
+        let button = document.querySelector('.button');
+        button.addEventListener('click', toastStart);
+
+
+        document.addEventListener('DOMContentLoaded', toastStart, true);
+    </script>
+  </body>
+</html>
